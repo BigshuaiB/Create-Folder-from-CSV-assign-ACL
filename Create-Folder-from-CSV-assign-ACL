@@ -1,0 +1,26 @@
+cls
+
+
+Set-Location "c:\temp"
+
+
+$Folders = Import-Csv "C:\Users\user\Documents\test.csv"
+
+
+
+
+
+
+ForEach ($Folder in $Folders) {
+
+New-Item $Folder.Name -type directory
+
+$USRNAME = "Test"+"_"+$Folder.Name+"_"+"List"
+
+icacls $Folder.Name  /inheritance:r /grant "administrators:(CI)(OI)(F)"
+
+icacls $Folder.name /grant "domain\domainadmin:(CI)(OI)(F)"
+
+icacls $Folder.name /grant "local\${USRNAME}:(CI)(OI)(F)"
+
+}
